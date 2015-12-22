@@ -1,0 +1,11 @@
+# BEFORE #
+
+my @stand = calcRectArea2($realMonsterPos->{x}, $realMonsterPos->{y},
+			  $args->{attackMethod}{distance},
+						  $config{runFromTarget} ? $config{runFromTarget_dist} : 0);
+
+# AFTER #
+
+my @stand = calcRectArea2($realMonsterPos->{x}, $realMonsterPos->{y},
+						  round($args->{attackMethod}{maxDistance}),
+						  $config{runFromTarget} ? $config{runFromTarget_dist} : 0);

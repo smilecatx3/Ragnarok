@@ -1,0 +1,51 @@
+# BEFORE #
+
+if ($LOSSubRoute && $attackTarget) {
+	Log::message("New target was choosen\n");
+	# Remove all unnecessary actions (attacks and movements but the main route)
+	my $i = scalar(@ai_seq);
+	my (@ai_seq_temp, @ai_seq_args_temp);
+	for(my $c=0;$c<$i;$c++) {
+		if (($ai_seq[$c] ne "route")
+		  && ($ai_seq[$c] ne "move")
+		  && ($ai_seq[$c] ne "attack")) {
+			push(@ai_seq_temp, $ai_seq[$c]);
+			push(@ai_seq_args_temp, $ai_seq_args[$c]);
+		}
+	}
+	# Add the main route and rewrite the sequence
+	push(@ai_seq_temp, $ai_seq[$i-1]);
+	push(@ai_seq_args_temp, $ai_seq_args[$i-1]);
+	@ai_seq = @ai_seq_temp;
+	@ai_seq_args = @ai_seq_args_temp;
+	# We need this timeout not to have attack started many times
+	$timeout{'ai_attack_auto'}{'time'} = time;
+}
+
+# AFTER #
+
+if ($LOSSubRoute && $attackTarget) {
+	if ($attackTarget ne AI::args(AI::findAction("attack"))->{ID} ) {
+		#Log::message("New target was choosen\n");
+		# Remove all unnecessary actions (attacks and movements but the main route)
+		my $i = scalar(@ai_seq);
+		my (@ai_seq_temp, @ai_seq_args_temp);
+		for(my $c=0;$c<$i;$c++) {
+			if (($ai_seq[$c] ne "route")
+				&& ($ai_seq[$c] ne "move")
+				&& ($ai_seq[$c] ne "attack")) {
+				push(@ai_seq_temp, $ai_seq[$c]);
+				push(@ai_seq_args_temp, $ai_seq_args[$c]);
+			}
+		}
+		# Add the main route and rewrite the sequence
+		push(@ai_seq_temp, $ai_seq[$i-1]);
+		push(@ai_seq_args_temp, $ai_seq_args[$i-1]);
+		@ai_seq = @ai_seq_temp;
+		@ai_seq_args = @ai_seq_args_temp;
+		# We need this timeout not to have attack started many times
+		$timeout{'ai_attack_auto'}{'time'} = time;
+	} else {
+		undef $attackTarget;
+	}
+}

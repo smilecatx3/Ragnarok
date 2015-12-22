@@ -1,0 +1,13 @@
+# BEFORE #
+
+# Check whether character comes earlier or at the same time
+if ($timeCharWalks <= $timeMonsterWalks) {
+	return \%charStep;
+}
+
+# AFTER #
+
+# Check whether character comes earlier or at the same time
+if ($timeCharWalks <= $timeMonsterWalks && $field->isWalkable($charStep{x}, $charStep{y}) ) {
+	return \%charStep;
+}

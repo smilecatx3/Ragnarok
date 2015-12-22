@@ -1,0 +1,49 @@
+# BEFORE #
+
+if ($config{'attackCanSnipe'}) {
+	if (!checkLineSnipable($myPos, $pos)) {
+		push(@noLOSMonsters, $_);
+		next;
+	}
+} else {
+	if (!checkLineWalkable($myPos, $pos)) {
+		push(@noLOSMonsters, $_);
+		next;
+	}
+}
+my $name = lc $monster->{name};
+my $dist = round(distance($myPos, $pos));
+
+# AFTER #
+
+my $name = lc $monster->{name};
+my $dist = distance($myPos, $pos);
+
+if ($config{attackCheckRouteDistance} && $field) {
+	my @solution;
+	if ($dist >= 2 && (!$config{'attackCanSnipe'} || !checkLineSnipable($myPos, $pos)) ) {
+		my $ret = Task::Route->getRoute( \@solution, $field, $myPos, $pos, 1 );
+		unless ($ret) {
+			$monster->{ignore} = 1;
+			next;
+		}
+		my $Steps = scalar @solution;
+		if ($Steps < $MaxSteps) {
+			$dist = $Steps;
+		} else {
+			next;
+		}
+	}
+} else {
+	if ($config{'attackCanSnipe'}) {
+		if (!checkLineSnipable($myPos, $pos)) {
+			push(@noLOSMonsters, $_);
+			next;
+		}
+	} else {
+		if (!checkLineWalkable($myPos, $pos)) {
+			push(@noLOSMonsters, $_);
+			next;
+		}
+	}
+}

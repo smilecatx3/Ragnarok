@@ -1,0 +1,7 @@
+# BEFORE #
+
+} elsif (!$wasZero) {
+
+# AFTER #
+
+} elsif ($self->{index} == 0) {

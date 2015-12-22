@@ -1,0 +1,11 @@
+# BEFORE #
+
+my ($highestPri, $smallestDist, $bestTarget);
+
+# First of all we check monsters in LOS, then the rest of monsters
+
+# AFTER #
+
+my ($highestPri, $smallestDist, $bestTarget);
+my $MaxSteps = $config{attackMaxRouteDistance} || 40;
+# First of all we check monsters in LOS, then the rest of monsters

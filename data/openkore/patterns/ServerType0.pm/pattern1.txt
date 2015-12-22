@@ -1,0 +1,28 @@
+# BEFORE #
+
+# Perform trigger actions
+if ($sourceID eq $accountID) {
+	$char->{time_cast} = time;
+	$char->{time_cast_wait} = $wait / 1000;
+	delete $char->{cast_cancelled};
+}
+
+# AFTER #
+
+# Perform trigger actions
+if ($sourceID eq $accountID) {
+	$char->{time_cast} = time;
+	$char->{time_cast_wait} = $wait / 1000;
+	delete $char->{cast_cancelled};
+}
+if (my $player = ($accountID eq $sourceID && $char) || $playersList->getByID($sourceID) || $slavesList->getByID($sourceID)) {
+	if ($player->{pos}{x} != $player->{pos_to}{x} || $player->{pos}{y} != $player->{pos_to}{y}) {
+		%{$player->{pos}} = %{calcPosition($player)};
+		%{$player->{pos_to}} = %{$player->{pos}};
+		$player->{time_move_calc} = 0;
+		if ($char->{party} && $char->{party}{users} && $char->{party}{users}{$sourceID}) {
+			%{$char->{party}{users}{$sourceID}{pos}} = %{$player->{pos}};
+			$char->{party}{users}{$sourceID}{online} = 1;
+		}
+	}
+}

@@ -1,0 +1,10 @@
+bak/
+out/
+libs/
+
+*.exe
+*.DS_Store
+
+# Intellij Idea project files
+.idea/
+*.iml

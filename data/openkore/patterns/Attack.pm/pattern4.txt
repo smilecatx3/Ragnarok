@@ -1,0 +1,7 @@
+# BEFORE #
+
+message TF("%s; moving to (%s, %s)\n", $msg, $best_spot->{x}, $best_spot->{y});
+
+# AFTER #
+
+#message TF("%s; moving to (%s, %s)\n", $msg, $best_spot->{x}, $best_spot->{y});

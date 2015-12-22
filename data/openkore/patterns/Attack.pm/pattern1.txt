@@ -1,0 +1,15 @@
+# BEFORE #
+
+} elsif (
+	$config{attackCheckLOS} && $args->{attackMethod}{distance} > 2
+	&& (($config{attackCanSnipe} && !checkLineSnipable($realMyPos, $realMonsterPos))
+	|| (!$config{attackCanSnipe} && $realMonsterDist <= $args->{attackMethod}{maxDistance} && !checkLineWalkable($realMyPos, $realMonsterPos, 1)))
+) {
+
+# AFTER #
+
+} elsif (
+	$config{attackCheckLOS} && $realMonsterDist > 1
+	&& (($config{attackCanSnipe} && !checkLineSnipable($realMyPos, $realMonsterPos))
+	|| (!$config{attackCanSnipe} && $realMonsterDist <= $args->{attackMethod}{maxDistance} && !checkLineWalkable($realMyPos, $realMonsterPos, 0)))
+) {

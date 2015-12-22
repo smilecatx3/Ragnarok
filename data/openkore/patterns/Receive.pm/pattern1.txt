@@ -1,0 +1,10 @@
+# BEFORE #
+
+use base qw(Network::PacketParser);
+use encoding 'utf8';
+
+# AFTER #
+
+use base qw(Network::PacketParser);
+use Time::HiRes qw(time usleep);
+use encoding 'utf8';

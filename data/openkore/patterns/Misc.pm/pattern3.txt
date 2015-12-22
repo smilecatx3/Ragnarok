@@ -1,0 +1,13 @@
+# BEFORE #
+
+# Check whether the distance is fine
+if (round(distance(\%charStep, \%monsterPosTo)) <= $attackMaxDistance) {
+	last;
+}
+
+# AFTER #
+
+# Check whether the distance is fine
+if (round(distance(\%charStep, \%monsterPosTo)) <= $attackMaxDistance && $field->isWalkable($charStep{x}, $charStep{y})) {
+	last;
+}

@@ -1,0 +1,18 @@
+# BEFORE #
+
+if ($char->{homunculus} && $char->{homunculus}{ID} eq $actor->{ID}) {
+	AI::clear("move");
+}
+
+# AFTER #
+
+if ($char->{homunculus} && $char->{homunculus}{ID} eq $actor->{ID}) {
+	AI::clear("move");
+}
+if ($char->{party} && $char->{party}{users} && $char->{party}{users}{$args->{ID}}) {
+	my $pID = $args->{ID};
+	$char->{party}{users}{$pID}{pos}{x} = $coords{x};
+	$char->{party}{users}{$pID}{pos}{y} = $coords{y};
+	$char->{party}{users}{$pID}{online} = 1;
+	debug "Party member location: $char->{party}{users}{$pID}{name} - $coords{x}, $coords{y}\n";
+}

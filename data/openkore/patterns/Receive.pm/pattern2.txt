@@ -1,0 +1,16 @@
+# BEFORE #
+
+# 0086 would need that?
+$actor->{object_type} = $args->{object_type} if (defined $args->{object_type});
+
+# AFTER #
+
+# 0086 would need that?
+$actor->{object_type} = $args->{object_type};
+if ($char->{party} && $char->{party}{users} && $char->{party}{users}{$args->{ID}}) {
+	my $pID = $args->{ID};
+	$char->{party}{users}{$pID}{pos}{x} = $coordsTo{x};
+	$char->{party}{users}{$pID}{pos}{y} = $coordsTo{y};
+	$char->{party}{users}{$pID}{online} = 1;
+	debug "Party member location: $char->{party}{users}{$pID}{name} - $coordsTo{x}, $coordsTo{y}\n";
+}

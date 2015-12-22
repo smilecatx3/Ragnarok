@@ -1,0 +1,7 @@
+# BEFORE #
+
+warning TF("%s; no acceptable place to stand\n", $msg);
+
+# AFTER #
+
+#warning TF("%s; no acceptable place to stand\n", $msg);

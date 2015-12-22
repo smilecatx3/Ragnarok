@@ -1,0 +1,14 @@
+# BEFORE #
+
+# List party monsters
+foreach (@monstersID) {
+	next if (!$_ || !checkMonsterCleanness($_));
+	my $monster = $monsters{$_};
+
+# AFTER #
+
+# List party monsters
+foreach (@monstersID) {
+	next if (!$_ || !checkMonsterCleanness($_));
+	my $monster = $monsters{$_};
+	next if $monster->{ignore};

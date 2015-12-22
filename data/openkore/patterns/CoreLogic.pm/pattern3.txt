@@ -1,0 +1,7 @@
+# BEFORE #
+
+Log::message("New target was choosen\n");
+
+# AFTER #
+
+#Log::message("New target was choosen\n");

@@ -1,0 +1,23 @@
+# BEFORE #
+
+if ($damage == 0) {
+	($accountID eq $targetID ? $monster->{missedYou} : $monster->{missedToPlayer}{$targetID}) += 1;
+	$player->{missedFromMonster}{$sourceID}++;
+}
+
+# AFTER #
+
+if ($damage == 0) {
+	($accountID eq $targetID ? $monster->{missedYou} : $monster->{missedToPlayer}{$targetID}) += 1;
+	$player->{missedFromMonster}{$sourceID}++;
+} elsif ($damage > 0
+		&& ($player->{pos}{x} != $player->{pos_to}{x} || $player->{pos}{y} != $player->{pos_to}{y})
+		&& !$player->statusActive('EFST_ENDURE')) {
+	%{$player->{pos}} = %{calcPosition($player)};
+	%{$player->{pos_to}} = %{$player->{pos}};
+	$player->{time_move_calc} = 0;
+	if ($char->{party} && $char->{party}{users} && $char->{party}{users}{$targetID}) {
+		%{$char->{party}{users}{$targetID}{pos}} = %{$player->{pos}};
+		$char->{party}{users}{$targetID}{online} = 1;
+	}
+}

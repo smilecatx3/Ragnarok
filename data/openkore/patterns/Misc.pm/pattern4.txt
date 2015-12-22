@@ -1,0 +1,15 @@
+# BEFORE #
+
+if (
+	!($accountID eq $targetID ? $attackTarget->{dmgToYou} : $attackTarget->{dmgToPlayer}{$targetID})
+	&& !($accountID eq $targetID ? $attackTarget->{dmgToYou} : $attackTarget->{dmgFromPlayer}{$targetID})
+	&& distance($monster->{pos_to}, calcPosition($player)) <= $attackSeq->{attackMethod}{distance}
+) {
+
+# AFTER #
+
+if (
+	!($accountID eq $targetID ? $attackTarget->{dmgToYou} : $attackTarget->{dmgToPlayer}{$targetID})
+	&& !($accountID eq $targetID ? $attackTarget->{dmgFromYou} : $attackTarget->{dmgFromPlayer}{$targetID})
+	&& distance($monster->{pos_to}, calcPosition($player)) <= $attackSeq->{attackMethod}{maxDistance}
+) {
